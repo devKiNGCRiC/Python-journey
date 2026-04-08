@@ -19,3 +19,20 @@ new_house_scaled = scaler.transform(new_house)
 predicted_price = model.predict(new_house_scaled)
 print(f'Predicted price: ${predicted_price[0]:,.2f}')
 print(f'R-squared: {model.score(X_scaled,y):.3f}')
+
+# Matplotlib: Actual vs Predicted price plot
+y_pred = model.predict(X_scaled)
+
+plt.figure(figsize=(8,5))
+plt.scatter(y, y_pred, alpha=0.7, color='teal')
+
+line_min = min(y.min(), y_pred.min())
+line_max = max(y.max(), y_pred.max())
+plt.plot([line_min, line_max], [line_min, line_max], 'r--', linewidth=2)
+
+plt.title('Actual vs Predicted House Prices')
+plt.xlabel('Actual Prices')
+plt.ylabel('Predicted Prices')
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.show()
